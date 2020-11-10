@@ -10,9 +10,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RTCMacros.h"
-#import "RTCVideoFrame.h"
-#import "RTCVideoRenderer.h"
+#import "WebRTC/RTCVideoFrame.h"
+#import "WebRTC/RTCVideoRenderer.h"
+
+// Check if metal is supported in WebRTC.
+// NOTE: Currently arm64 == Metal.
+#if defined(__aarch64__)
+#define RTC_SUPPORTS_METAL
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,10 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_CLASS_AVAILABLE_IOS(9)
 
-RTC_OBJC_EXPORT
-@interface RTC_OBJC_TYPE (RTCMTLVideoView) : UIView<RTC_OBJC_TYPE(RTCVideoRenderer)>
+RTC_EXPORT
+@interface RTCMTLVideoView : UIView<RTCVideoRenderer>
 
-@property(nonatomic, weak) id<RTC_OBJC_TYPE(RTCVideoViewDelegate)> delegate;
+@property(nonatomic, weak) id<RTCVideoViewDelegate> delegate;
 
 @property(nonatomic) UIViewContentMode videoContentMode;
 
